@@ -1,12 +1,14 @@
 ## Helpful Notes to Share
 
 ### Start up the Flask Server in the venv
-* `cd api`
+* `cd hi5ive`
+* NEED to be in the same folder as pyproject.toml
 * `source venv/bin/activate`
-* `export FLASK_APP=app.py` (Tells Flask how to import the application)
-* `flask run`
+* `pip install -e .`
+* `flask --app api run`
 
 ### Start up React app
 * `cd hi5ive`
+* `npm install`
 * `npm run start`
 * 

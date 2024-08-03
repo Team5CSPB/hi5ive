@@ -9,7 +9,7 @@ export const UserGrid = () => {
 
   const getUsers = async () => {
     const response = await axios.get('/users');
-    console.log(response.data);
+    console.log('RESPONSE DATA: ', response.data);
     setUsers(response.data);
   };
 

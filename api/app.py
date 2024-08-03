@@ -9,7 +9,7 @@ bp = Blueprint('api', __name__)
 def generate_avatar_url():
     response = requests.get('https://randomuser.me/api/')
     data = response.json()
-    return data['results'][0]['picture']['large']
+    return data['results'][0]['picture']['medium']
 
 users = [
         {

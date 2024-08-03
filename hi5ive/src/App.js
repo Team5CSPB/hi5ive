@@ -8,7 +8,7 @@ import { UserGrid } from './components/UserGrid';
 import Navbar from './components/Navbar';
 import Logo from './components/Logo';
 import LoginPage from './components/LoginPage';
-import HomePage from './components/HelloPage';
+import HelloPage from './components/HelloPage';
 
 const user = {
   id: 6,
@@ -24,27 +24,28 @@ const user = {
 function App() {
   // not logged in logic is running
   // logged in logic is commented out
-return (
-  <div className='Homepage'>
-<HomePage/>
-</div>
+//return (
+ // <div className='Homepage'>
+//<HomePage/>
+// </div>
 
-  // const [loggedInUser, setLoggedInUser] = useState(user);
-  // return (
-  //   <div className="App">
-  //     <div className="container">
-  //       <Router>
-  //         <Navbar user={loggedInUser} />
-  //         <Routes>
-  //           <Route path="/" element={<UserGrid />} />
-  //           <Route
-  //             path="/my-profile"
-  //             element={<Profile user={loggedInUser} />}
-  //           />
-  //         </Routes>
-  //       </Router>
-  //     </div>
-  //   </div>
+  const [loggedInUser, setLoggedInUser] = useState(user);
+  return (
+    <div className="App">
+      <div className="container">
+        <Router>
+          <Navbar user={loggedInUser} />
+          <Routes>
+            <Route path="/" element={<HelloPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/my-profile"
+              element={<Profile user={loggedInUser} />}
+            />
+          </Routes>
+        </Router>
+      </div>
+    </div>
   );
 }
 
