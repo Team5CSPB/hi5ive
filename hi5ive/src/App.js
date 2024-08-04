@@ -24,10 +24,10 @@ const user = {
 function App() {
   // not logged in logic is running
   // logged in logic is commented out
-//return (
- // <div className='Homepage'>
-//<HomePage/>
-// </div>
+  //return (
+  // <div className='Homepage'>
+  //<HomePage/>
+  // </div>
 
   const [loggedInUser, setLoggedInUser] = useState(user);
   return (
@@ -38,6 +38,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HelloPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/users" element={<UserGrid />} />
             <Route
               path="/my-profile"
               element={<Profile user={loggedInUser} />}

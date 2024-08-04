@@ -1,5 +1,35 @@
+body {
+  background-color: #f0f4f8; /* Light gray-blue background */
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-container {
+  padding: 2em;
+  background-color: white; /* White background for the profile content */
+  border-radius: 8px; /* Rounded corners for the profile content */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for the profile content */
+}
+
 .profile .ui.segment {
-  padding: 20px;
+  margin-top: 1em;
+}
+
+.profile .ui.card {
+  margin: 0.5em;
+  border: 1px solid #e1e1e1; /* Light border around the card */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for the card */
+  border-radius: 8px; /* Rounded corners for the card */
+}
+
+.profile .ui.card .content {
+  padding: 1em; /* Padding inside the card */
+}
+
+.profile .ui.card .header {
+  color: #333; /* Darker color for the card header */
+  font-weight: bold; /* Bold font for the card header */
 }
 
 .profile .ui.image {

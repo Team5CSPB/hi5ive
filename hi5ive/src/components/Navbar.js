@@ -22,6 +22,13 @@ export default class Navar extends Component {
         />
         <Menu.Item
           as={Link}
+          to="/users"
+          name="5ivers"
+          active={activeItem === '5ivers'}
+          onClick={this.handleItemClick}
+        />
+        <Menu.Item
+          as={Link}
           to="/my-profile"
           name="my-profile"
           active={activeItem === 'my-profile'}
