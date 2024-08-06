@@ -59,6 +59,21 @@ def get_user(user_id):
     print(f"User dict: {user_dict}")  # Debug print
     return make_response(jsonify(user_dict), 200)
 
+@bp.route('/login', methods=['GET', 'POST'])
+def login():
+    login_response = {'place': 'holder'}
+    return make_response(jsonify(login_response))
+
+@bp.route('/signup', methods=['GET', 'POST'])
+def signup():
+    signup_response = {'place': 'holder'}
+    return make_response(jsonify(signup_response))
+
+@bp.route('/logout', methods=['GET', 'POST'])
+def logout():
+    logout_response = {'place': 'holder'}
+    return make_response(jsonify(logout_response))
+
 app.register_blueprint(bp)
 
 if __name__ == '__main__':
