@@ -9,7 +9,6 @@ import Navbar from './components/Navbar'
 import Logo from './components/Logo'
 import LoginPage from './components/LoginPage'
 import HelloPage from './components/HelloPage'
-import SignUp from "./components/SignUp.js";
 
 const user = {
 	id: 6,
