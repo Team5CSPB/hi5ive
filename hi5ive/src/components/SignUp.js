@@ -54,7 +54,7 @@ function SignUp() {
         }
 
         if (validatePasswords()) {
-            // Submit the form 
+            // Submit the form
             console.log('Form submitted');
         }
     };
@@ -70,7 +70,7 @@ function SignUp() {
     return (
         <div className="SignUpPage">
             <header className="App-header">
-                <Logo onClick={LogoClick} /> {/* Use Logo component */}
+                <Logo/> {/* Use Logo component */}
                 <h1>Sign up to hi5ive someone with the same interests as you and connect on a deeper level</h1>
                 <hr className="App-hr" />
             </header>

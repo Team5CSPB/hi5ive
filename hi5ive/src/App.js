@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css'
-
+import SignUp from "./components/SignUp.js";
 import './App.css'
 import { Profile } from './components/Profile'
 import { UserGrid } from './components/UserGrid'
@@ -9,6 +9,7 @@ import Navbar from './components/Navbar'
 import Logo from './components/Logo'
 import LoginPage from './components/LoginPage'
 import HelloPage from './components/HelloPage'
+import SignUp from "./components/SignUp.js";
 
 const user = {
 	id: 6,
@@ -78,7 +79,7 @@ function App() {
 							path="/my-profile"
 							element={<Profile user={loggedInUser} />}
 						/>
-            
+
 					</Routes>
 				</Router>
 			</div>
