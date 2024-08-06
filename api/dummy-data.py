@@ -62,7 +62,7 @@ def insert_dummy_data():
         user_ids.append(user_id)
 
     # Insert dummy data into Interests table
-    interests = ['Hiking', 'Reading', 'Cooking', 'Traveling', 'Gaming']
+    interests = ['hiking', 'reading', 'cooking', 'traveling', 'gaming']
     insert_interests_query = "INSERT INTO Interests (name) VALUES (%s) RETURNING id"
     interest_ids = []
     for interest in interests:
