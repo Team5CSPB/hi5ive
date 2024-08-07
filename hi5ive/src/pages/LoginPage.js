@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Logo from '../components/Logo.js';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar';
 import '../styles/LoginPage.css';
 import {Button} from 'semantic-ui-react';
 

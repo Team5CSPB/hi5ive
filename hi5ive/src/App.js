@@ -14,25 +14,29 @@ import Navbar from './components/Navbar'
 import Logo from './components/Logo'
 import LoginPage from './pages/LoginPage'
 import HelloPage from './pages/HelloPage'
+import axios from 'axios';
+import DummyData from './DummyData.json';
 
 const user = {
 	id: 6,
 	status: 'active',
 	name: 'Hedy Lamar',
 	hobbies: ['singing', 'dancing'],
-	groups: ['trekking', 'cooking'],
+	matches: ['trekking', 'cooking'],
 	interests: ['movies', 'sports'],
 	about: 'I am a singer and dancer',
 	imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
 }
 
 function App() {
-	// not logged in logic is running
-	// logged in logic is commented out
-	//return (
-	// <div className='Homepage'>
-	//<HomePage/>
-	// </div>
+
+	const handleAddMatch = (user) => {
+    setLoggedInUser(prevState => ({
+      ...prevState,
+      matches: [...prevState.matches, user.firstname + ' ' + user.lastname],
+    }));
+  };
+
 
 	const [loggedInUser, setLoggedInUser] = useState(null)
 
@@ -62,37 +66,56 @@ function App() {
 	// }, []) // Empty dependency array means this effect runs once when the component mounts
 
 	// EXAMPLE Get users by interest
-	const [searchTerm, setSearchTerm] = useState('')
+	const [searchTerm, setSearchTerm] = useState('');
 	const [usersByInterest, setUsersByInterest] = useState([])
 
-	const fetchUsersByInterest = async (interest) => {
-		try {
-			const response = await fetch(
-				`http://localhost:5000/users/interests/${interest}`
-			)
-			const text = await response.text() // Get the response as text
-			if (text) {
-				const data = JSON.parse(text) // Parse the text to JSON if it's not empty
-				setUsersByInterest(data) // Assuming the response is the user object
-			} else {
-				console.error('Error fetching users by interest: Response is empty')
-			}
-		} catch (error) {
-			console.error('Error fetching users by interest:', error)
-		}
+	const handleSearch = (term) =>{
+		setSearchTerm(term);
 	}
 
-	const handleSearch = (interest) => {
-		setSearchTerm(interest)
-		if (searchTerm) {
-			fetchUsersByInterest(searchTerm)
-		}
-	}
+	// const fetchUsersByInterest = async (interest) => {
+	// 	try {
+	// 		console.log("called fetchusers by interest");
+	// 		const response = await fetch(
+	// 			`http://localhost:5000/users/interests/${interest}`
+	// 		)
+	// 		const text = await response.text() // Get the response as text
+	// 		if (text) {
+	// 			const data = JSON.parse(text) // Parse the text to JSON if it's not empty
+	// 			setUsersByInterest(data) // Assuming the response is the user object
+	// 		} else {
+	// 			console.error('Error fetching users by interest: Response is empty')
+	// 		}
+	// 	} catch (error) {
+	// 		console.error('Error fetching users by interest:', error)
+	// 	}
+	// }
 
+	// FETCH USERS USING AXIOS
+	// const fetchUsersByInterest = async (interest) => {
+  //   const response = await axios.get(`http://localhost:5000/users/interests/${interest}`);
+  //   console.log('RESPONSE DATA FOR INTEREST: HIKING: ', response.data);
+  //   setUsersByInterest(response.data);
+  // };
+
+
+	// Dummy Data using JSON
+
+// handlesearch  take the given interest
+	// const handleSearch = (interest) => {
+	// 	setSearchTerm(interest)
+	// 	if (searchTerm) {
+	// 		fetchUsersByInterest(searchTerm)
+	// 	}
+	// }
+
+   // logout handler sets the user login to null, logs them out -
 	const handleLogout = () => {
-		setLoggedInUser(null)
+		setLoggedInUser(null);
 	}
 
+
+	// render
 	return (
 		<div className="App">
 			<div className="container">
@@ -103,7 +126,7 @@ function App() {
 							onLogout={handleLogout}
 							handleSearch={handleSearch}
 						/>
-					)}{' '}
+					)}
 					{/* Conditionally render Navbar */}
 					<Routes>
 						<Route
@@ -116,7 +139,7 @@ function App() {
 						/>
 						<Route
 							path="/users"
-							element={loggedInUser ? <UserGrid /> : <Navigate to="/login" />}
+							element={loggedInUser ? <UserGrid searchTerm={searchTerm} onAddMatch={handleAddMatch}  /> : <Navigate to="/login" />}
 						/>
 						<Route
 							path="/SignUp"
@@ -134,6 +157,8 @@ function App() {
 						/>
 						<Route
 							path="*"
+							// !!!!!!!!!!!!!!!!!!!! copy and paste when finsihed with profile !!!!!!!!!!!!!!!!!!!!
+							// {loggedInUser ? '/users' : '/'}
 							element={<Navigate to={loggedInUser ? '/users' : '/'} />}
 						/>
 					</Routes>

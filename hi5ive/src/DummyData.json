@@ -1,0 +1,72 @@
+[
+  {
+      "username": "john_doe",
+      "email": "john@example.com",
+      "firstname": "John",
+      "lastname": "Doe",
+      "bio": "My interests include hiking, reading, and cooking",
+      "profile_pic": "profile_pic_1.jpg",
+      "Location": "Location 1",
+      "interests": ["hiking", "reading", "cooking", "traveling", "gaming", "photography", "music"]
+  },
+  {
+      "username": "jane_smith",
+      "email": "jane@example.com",
+      "firstname": "Jane",
+      "lastname": "Smith",
+      "bio": "I like yoga, and painting",
+      "profile_pic": "profile_pic_2.jpg",
+      "Location": "Location 2",
+      "interests": ["hiking", "traveling", "cooking", "yoga", "painting"]
+  },
+  {
+      "username": "alice_jones",
+      "email": "alice@example.com",
+      "firstname": "Alice",
+      "lastname": "Jones",
+      "bio": "I love to travel",
+      "profile_pic": "profile_pic_3.jpg",
+      "Location": "Location 3",
+      "interests": ["gaming", "traveling", "hiking", "writing", "dancing"]
+  },
+  {
+      "username": "bob_brown",
+      "email": "bob@example.com",
+      "firstname": "Bob",
+      "lastname": "Brown",
+      "bio": "Bio for Bob Brown",
+      "profile_pic": "Message me if you are interesting in gaming!",
+      "Location": "Location 4",
+      "interests": ["gaming", "reading", "traveling", "cycling", "cooking"]
+  },
+  {
+      "username": "carol_white",
+      "email": "carol@example.com",
+      "firstname": "Carol",
+      "lastname": "White",
+      "bio": "Always down for a hike!",
+      "profile_pic": "profile_pic_5.jpg",
+      "Location": "Location 5",
+      "interests": ["cooking", "traveling", "hiking", "gardening", "photography"]
+  },
+  {
+      "username": "david_black",
+      "email": "david@example.com",
+      "firstname": "David",
+      "lastname": "Black",
+      "bio": "I like outdoor activities",
+      "profile_pic": "profile_pic_6.jpg",
+      "Location": "Location 6",
+      "interests": ["reading", "gaming", "traveling", "fishing", "cooking"]
+  },
+  {
+      "username": "eve_adams",
+      "email": "eve@example.com",
+      "firstname": "Eve",
+      "lastname": "Adams",
+      "bio": "Music + fitness",
+      "profile_pic": "profile_pic_7.jpg",
+      "Location": "Location 7",
+      "interests": ["hiking", "gaming", "cooking", "traveling", "music", "fitness"]
+  }
+]

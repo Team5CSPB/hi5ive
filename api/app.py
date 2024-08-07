@@ -78,7 +78,7 @@ def get_users_by_interest(interest):
 
         cursor = db_conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         cursor.execute("""
-            SELECT u.* 
+            SELECT u.*
             FROM users u
             JOIN user_interests ui ON u.id = ui.user_id
             WHERE ui.interest_id = %s
