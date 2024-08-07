@@ -2,9 +2,13 @@
 
 ### Start up the Flask Server in the venv
 * `cd app/`
-* NEED to be in the same folder as pyproject.toml
+* NEED to be in the same folder as pyproject.toml - pip install -e .
 * `source venv/bin/activate`
-* `pip install -e .`
+  `pip install -r requirements.txt` install dependencies 
+* `export FLASK_APP=app.py` (Tells Flask how to import the application)
+* `flask run`
+
+if export doesn't work:
 * `flask --app app run`
 
 ### Start up React app
