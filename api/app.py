@@ -60,11 +60,6 @@ def get_user(user_id):
     print(f"User dict: {user_dict}")  # Debug print
     return make_response(jsonify(user_dict), 200)
 
-@bp.route('/find_matches', methods=['GET', 'POST'])
-def find_matches():
-    return None
-
-
 #* Not fully implemented
 # @bp.route('/login', methods=['GET', 'POST'])
 # def login():
