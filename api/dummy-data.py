@@ -13,7 +13,7 @@ def generate_avatar_url():
     data = response.json()
     return data['results'][0]['picture']['large']
 
-def insert_dummy_data():
+#def insert_dummy_data():
     # Connect to the database
     conn = psycopg2.connect(
         dbname=config['database']['dbname'],
@@ -125,5 +125,5 @@ def test_dummy_data():
     conn.close()
 
 if __name__ == "__main__":
-    insert_dummy_data()
+    #insert_dummy_data()
     test_dummy_data()

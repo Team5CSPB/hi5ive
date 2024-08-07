@@ -27,3 +27,5 @@ dist/
 
 # Ignore the api/src/ directory
 api/src/
+api/dummy_data.txt
+api/tests/__pycache__

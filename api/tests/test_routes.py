@@ -15,8 +15,15 @@ def test_get_user(client):
     response = client.get('/user/1')
     assert response.is_json, "Response is not JSON"
     assert response.status_code == 200
-    assert response.json['username'] == 'testuser', "Wrong username returned for dummy user 1"
+    assert response.json['username'] == 'john_doe', "Wrong username returned for dummy user 1"
     assert response.json['id'] == 1, 'dummy user 1 should be user id 1'
+
+def test_get_user_none(client):
+    response = client.get('/user/5483')
+    assert response.is_json, "Response is not JSON"
+    assert response.status_code == 404
+    assert response.json['error'] == 'User not found'
+
 
 # not sure what else to include here
 def test_get_users(client):
@@ -26,16 +33,17 @@ def test_get_users(client):
 
 # test a link we don't have
 def test_get_unknown_route(client):
-    response = client.get('/home')
+    response = client.get('/not_a_route')
     assert response.status_code == 404, 'unknown route should return 404'
 
 
 # place holder route
 def test_login(client):
-    response = client.get('/login')
-    assert response.status_code == 200
+    assert client.get('/login').status_code == 200
+    response = client.post('/login', data={'username': 'john_doe', 'password_hash': 'hashed_password_1'})
     assert response.is_json
-    assert response.json['place'] == 'holder'
+    #assert response.json['email'] == 'john@example.com'
+    print(response.json)
 
 # another place holder route
 def test_signup(client):

@@ -1,4 +1,4 @@
-from flask import Blueprint, make_response, jsonify
+from flask import Blueprint, make_response, jsonify, request, session
 from flask_cors import CORS
 from . import db, create_app
 import psycopg2.extras
@@ -59,10 +59,56 @@ def get_user(user_id):
     print(f"User dict: {user_dict}")  # Debug print
     return make_response(jsonify(user_dict), 200)
 
+@bp.route('/find_matches', methods=['GET', 'POST'])
+def find_matches():
+    return None
+
+
+
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
-    login_response = {'place': 'holder'}
-    return make_response(jsonify(login_response))
+    user = None
+    cursor = None
+    db_conn = None
+    if request.method == 'POST':
+        try:
+            username = request.form['username']
+            password = request.form['password_hash']
+            db_conn = db.get_db()
+            cursor = db_conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+            cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+            user = cursor.fetchone()
+            print(f"User: {user}")  # Debug print
+            # user = dict(user)
+            if user is None:
+                print("User not found")
+                return make_response(jsonify({'error': 'Invalid username'}), 401)
+            if user['password_hash'] != password:
+                print("Invalid password")
+                return make_response(jsonify({'error': 'Invalid password'}), 401)
+            # print(f"Logged in user: {user}")  # Debug print
+        except Exception as e:
+            print(f"Error logging in user: {e}")
+            return make_response(jsonify({'error': 'Invalid username or password'}), 401)
+        finally:
+            if cursor:
+                cursor.close()
+            if db_conn:
+                db_conn.close()
+        if user:
+            print("User found")
+            login_response = dict(user)
+            return make_response(jsonify(login_response))
+        else:
+            print("User not found")
+            login_response = {'error': 'user not found'}
+            return make_response(jsonify(login_response))
+        
+    return make_response(jsonify({'place': 'holder'}), 200)
+
+
+    # login_response = {'place': 'holder'}
+    # return make_response(jsonify(login_response))
 
 @bp.route('/signup', methods=['GET', 'POST'])
 def signup():
