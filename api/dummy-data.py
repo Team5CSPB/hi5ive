@@ -8,6 +8,23 @@ config = configparser.ConfigParser()
 # Read the configuration file
 config.read('config.ini')
 
+def run_sql_script(filename):
+    with open(filename, 'r') as file:
+        sql_script = file.read()
+
+    conn = psycopg2.connect(
+        dbname=config['database']['dbname'],
+        user=config['database']['user'],
+        password=config['database']['password'],
+        host=config['database']['host'],
+        port=config['database']['port']
+    )
+    cursor = conn.cursor()
+    cursor.execute(sql_script)
+    conn.commit()
+    cursor.close()
+    conn.close()
+
 def generate_avatar_url():
     response = requests.get('https://randomuser.me/api/')
     data = response.json()
@@ -45,7 +62,7 @@ def generate_avatar_url():
         user_ids.append(user_id)
 
     # Insert dummy data into Interests table
-    interests = ['Hiking', 'Reading', 'Cooking', 'Traveling', 'Gaming']
+    interests = ['hiking', 'reading', 'cooking', 'traveling', 'gaming']
     insert_interests_query = "INSERT INTO Interests (name) VALUES (%s) RETURNING id"
     interest_ids = []
     for interest in interests:
@@ -125,5 +142,6 @@ def test_dummy_data():
     conn.close()
 
 if __name__ == "__main__":
-    #insert_dummy_data()
+    run_sql_script('postgres-db.sql')
+    insert_dummy_data()
     test_dummy_data()

@@ -1,10 +1,11 @@
-DROP TABLE IF EXISTS Users;
+-- Drop tables if they exist with CASCADE to handle dependencies
+DROP TABLE IF EXISTS User_Interests CASCADE;
 
-DROP TABLE IF EXISTS Interests;
+DROP TABLE IF EXISTS Matches CASCADE;
 
-DROP TABLE IF EXISTS User_Interests;
+DROP TABLE IF EXISTS Interests CASCADE;
 
-DROP TABLE IF EXISTS Matches;
+DROP TABLE IF EXISTS Users CASCADE;
 
 -- Users Table
 CREATE TABLE

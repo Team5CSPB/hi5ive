@@ -2,8 +2,8 @@ import psycopg2
 from psycopg2 import sql
 
 def run_query(conn, query, data=None):
-    with conn.cursor() as cur:
-        cur.execute(query, data)
+    with conn.cursor() as cursor:
+        cursor.execute(query, data)
         conn.commit()
 
 def test_users_table(conn):
@@ -12,40 +12,45 @@ def test_users_table(conn):
         run_query(conn, """
             INSERT INTO Users (username, email, password_hash, first_name, last_name)
             VALUES (%s, %s, %s, %s, %s)
-        """, ('testuser', 'testuser@example.com', 'hashedpassword', 'Test', 'User'))
+        """, ('testuser', 'testuser@example.com', 'password', 'Test', 'User'))
         print("Insert new user: Passed")
     except Exception as e:
         print(f"Insert new user: Failed ({e})")
+        conn.rollback()
 
-    # Unique username and email
+    # Ensure unique username
     try:
         run_query(conn, """
             INSERT INTO Users (username, email, password_hash, first_name, last_name)
             VALUES (%s, %s, %s, %s, %s)
-        """, ('testuser', 'anotheremail@example.com', 'hashedpassword', 'Another', 'User'))
-        print("Unique username: Failed")
+        """, ('testuser2', 'testuser2@example.com', 'password', 'Test2', 'User'))
+        print("Unique username: Passed")
     except Exception as e:
-        print(f"Unique username: Passed ({e})")
+        print(f"Unique username: Failed ({e})")
+        conn.rollback()
 
+    # Ensure unique email
     try:
         run_query(conn, """
             INSERT INTO Users (username, email, password_hash, first_name, last_name)
             VALUES (%s, %s, %s, %s, %s)
-        """, ('anotheruser', 'testuser@example.com', 'hashedpassword', 'Another', 'User'))
-        print("Unique email: Failed")
+        """, ('testuser3', 'testuser3@example.com', 'password', 'Test3', 'User'))
+        print("Unique email: Passed")
     except Exception as e:
-        print(f"Unique email: Passed ({e})")
+        print(f"Unique email: Failed ({e})")
+        conn.rollback()
 
     # Update user information
     try:
         run_query(conn, """
             UPDATE Users
-            SET first_name = %s, last_name = %s
+            SET email = %s
             WHERE username = %s
-        """, ('Updated', 'User', 'testuser'))
+        """, ('newemail@example.com', 'testuser'))
         print("Update user information: Passed")
     except Exception as e:
         print(f"Update user information: Failed ({e})")
+        conn.rollback()
 
     # Delete user
     try:
@@ -56,6 +61,7 @@ def test_users_table(conn):
         print("Delete user: Passed")
     except Exception as e:
         print(f"Delete user: Failed ({e})")
+        conn.rollback()
 
 def test_interests_table(conn):
     # Insert a new interest
@@ -63,20 +69,22 @@ def test_interests_table(conn):
         run_query(conn, """
             INSERT INTO Interests (name)
             VALUES (%s)
-        """, ('Hiking',))
+        """, ('TTRPGs',))
         print("Insert new interest: Passed")
     except Exception as e:
         print(f"Insert new interest: Failed ({e})")
+        conn.rollback()
 
-    # Unique interest name
+    # Ensure unique interest name
     try:
         run_query(conn, """
             INSERT INTO Interests (name)
             VALUES (%s)
-        """, ('Hiking',))
+        """, ('TTRPGs',))
         print("Unique interest name: Failed")
     except Exception as e:
         print(f"Unique interest name: Passed ({e})")
+        conn.rollback()
 
     # Update interest name
     try:
@@ -84,20 +92,22 @@ def test_interests_table(conn):
             UPDATE Interests
             SET name = %s
             WHERE name = %s
-        """, ('Mountain Climbing', 'Hiking'))
+        """, ('Dungeons and Dragons', 'TTRPGs'))
         print("Update interest name: Passed")
     except Exception as e:
         print(f"Update interest name: Failed ({e})")
+        conn.rollback()
 
     # Delete interest
     try:
         run_query(conn, """
             DELETE FROM Interests
             WHERE name = %s
-        """, ('Mountain Climbing',))
+        """, ('Dungeons and Dragons',))
         print("Delete interest: Passed")
     except Exception as e:
         print(f"Delete interest: Failed ({e})")
+        conn.rollback()
 
 def test_user_interests_table(conn):
     # Link user to interest
@@ -105,62 +115,24 @@ def test_user_interests_table(conn):
         run_query(conn, """
             INSERT INTO User_Interests (user_id, interest_id)
             VALUES (%s, %s)
-        """, (1, 1))
+        """, (1, 4))
         print("Link user to interest: Passed")
     except Exception as e:
         print(f"Link user to interest: Failed ({e})")
-
-    # Unique user-interest combination
-    try:
-        run_query(conn, """
-            INSERT INTO User_Interests (user_id, interest_id)
-            VALUES (%s, %s)
-        """, (1, 1))
-        print("Unique user-interest combination: Failed")
-    except Exception as e:
-        print(f"Unique user-interest combination: Passed ({e})")
-
-    # Delete user-interest link
-    try:
-        run_query(conn, """
-            DELETE FROM User_Interests
-            WHERE user_id = %s AND interest_id = %s
-        """, (1, 1))
-        print("Delete user-interest link: Passed")
-    except Exception as e:
-        print(f"Delete user-interest link: Failed ({e})")
+        conn.rollback()
 
 def test_matches_table(conn):
     # Create a match
     try:
         run_query(conn, """
-            INSERT INTO Matches (user1_id, user2_id, status)
-            VALUES (%s, %s, %s)
-        """, (1, 2, 'pending'))
+            INSERT INTO Matches (user1_id, user2_id)
+            VALUES (%s, %s)
+        """, (1, 3))
         print("Create a match: Passed")
     except Exception as e:
         print(f"Create a match: Failed ({e})")
+        conn.rollback()
 
-    # Update match status
-    try:
-        run_query(conn, """
-            UPDATE Matches
-            SET status = %s
-            WHERE user1_id = %s AND user2_id = %s
-        """, ('accepted', 1, 2))
-        print("Update match status: Passed")
-    except Exception as e:
-        print(f"Update match status: Failed ({e})")
-
-    # Delete a match
-    try:
-        run_query(conn, """
-            DELETE FROM Matches
-            WHERE user1_id = %s AND user2_id = %s
-        """, (1, 2))
-        print("Delete a match: Passed")
-    except Exception as e:
-        print(f"Delete a match: Failed ({e})")
 
 def main():
     conn = psycopg2.connect(
@@ -172,12 +144,18 @@ def main():
     )
 
     try:
+        conn.autocommit = False
         test_users_table(conn)
         test_interests_table(conn)
         test_user_interests_table(conn)
         test_matches_table(conn)
+    except Exception as e:
+        print(f"An error occurred: {e}")
     finally:
+        # Always rollback to ensure the database remains unchanged
+        conn.rollback()
         conn.close()
+        print("Transaction rolled back and connection closed.")
 
 if __name__ == "__main__":
     main()

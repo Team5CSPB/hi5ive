@@ -58,3 +58,20 @@ body {
   font-size: 1.2em;
   padding: 5px;
 }
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.nav-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+

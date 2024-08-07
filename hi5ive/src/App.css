@@ -31,7 +31,6 @@
 
 .images-container {
   display: flex;
-  max-width: 500px;
   overflow: scroll;
   /* Add the following lines for smooth scrolling */
   scroll-behavior: smooth;
@@ -39,7 +38,7 @@
 }
 
 .image {
-  width: 200px;
+  width: 400px;
   height: 200px;
   margin: 5px;
   border-radius: 8px;

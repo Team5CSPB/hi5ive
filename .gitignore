@@ -29,3 +29,6 @@ dist/
 api/src/
 api/dummy_data.txt
 api/tests/__pycache__
+
+
+.DS_Store

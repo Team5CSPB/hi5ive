@@ -1,0 +1,93 @@
+.SignUpPage {
+  text-align: center;
+  position: relative;
+  height: 100vh;
+  background-color: #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Styling for the logo */ 
+.Logo {
+  height: 20vmin;
+  margin-top: 20px; /* Adjust spacing as needed */
+}
+
+/* Header styling */
+.App-header {
+  background-color: #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-grow: 1;
+
+}
+
+/* Header h1 styling */
+.App-header h1 {
+  font-size: 35px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.App-hr {
+  width: 100%; /* Ensures the line spans the full width */
+  border: 0;
+  height: 1px;
+  background-color: rgb(246, 248, 248);
+  margin-top: 20px; /* Adjust this to position the line correctly */
+}
+
+/* SignUp section */
+.SignUp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Ensure it takes full width */
+  background-color: #000000;
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+
+.SignUp input[type="text"],
+.SignUp input[type="date"],
+.SignUp input[type="password"] {
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  width: 300px;
+}
+
+.submitButton {
+  padding: 10px 45px;
+  font-size: 16px;
+  background-color: #61dafb; /* Blue color */
+  border: none;
+  color: black;
+  cursor: pointer;
+   
+}
+
+
+/* Member section */
+.Member {
+  background-color: #000000;
+  width: 100%; /* Ensure it takes full width */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+.Member h1 {
+  color: white;
+}
+
+
+.Member .authButton {
+  padding: 10px 45px;
+  font-size: 16px;
+  background-color: #61dafb;
+  border: none;
+  color: black;
+  cursor: pointer;
+}
