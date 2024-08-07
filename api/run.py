@@ -3,7 +3,7 @@ import os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'api')))
 
-from app import create_app
+from api import create_app
 
 app = create_app()
 

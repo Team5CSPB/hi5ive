@@ -31,6 +31,30 @@ def test_matches(client):
     assert len(response.json) > 0
     print(response.json)
 
+def test_create_match_duplicate(client):
+    response = client.post('/create_match', data={'user1_id': 1, 'user2_id': 2})
+    assert response.is_json, "Response is not JSON"
+    assert response.status_code == 409
+    assert response.json['error'] == 'Match already exists'
+
+def test_create_match_invalid_user(client):
+    response = client.post('/create_match', data={'user1_id': 1, 'user2_id': 5483})
+    assert response.is_json, "Response is not JSON"
+    assert response.status_code == 404
+    assert response.json['error'] == 'User not found'
+
+def test_create_match_self(client):
+    response = client.post('/create_match', data={'user1_id': 1, 'user2_id': 1})
+    assert response.is_json, "Response is not JSON"
+    assert response.status_code == 409
+    assert response.json['error'] == 'Can\'t match user to self'
+
+def test_create_match(client):
+    response = client.post('/create_match', data={'user1_id': 1, 'user2_id': 3})
+    assert response.is_json, "Response is not JSON"
+    assert response.status_code == 200
+    assert response.json['user1_id'] == 1
+    assert response.json['user2_id'] == 3
 
 # not sure what else to include here
 def test_get_users(client):

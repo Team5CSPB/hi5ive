@@ -111,10 +111,46 @@ def find_matches():
     # login_response = {'place': 'holder'}
     # return make_response(jsonify(login_response))
 
-# TODO write create_match, test create_match
+# Creates a match
 @bp.route('/create_match', methods=['GET', 'POST'])
 def create_match():
-    create_match_response = {'place': 'holder'}
+    cursor = None
+    db_conn = None
+    create_match_response = None
+    if request.method == 'POST':
+        try:
+            source_user = request.form['user1_id']
+            target_user = request.form['user2_id']
+            if get_user(source_user).status_code != 200 or get_user(target_user).status_code != 200:
+                print("User not found")  # Debug print
+                return make_response(jsonify({'error': 'User not found'}), 404)
+            if source_user == target_user:
+                print("Can't match user to self")  # Debug print
+                return make_response(jsonify({'error': 'Can\'t match user to self'}), 409)
+            db_conn = db.get_db()
+            cursor = db_conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+            # Check if match already exists
+            cursor.execute("SELECT * FROM matches WHERE user1_id = %s AND user2_id = %s", (source_user, target_user))
+            match = cursor.fetchone()
+            if match is not None:
+                print(f"Match already exists between {source_user} and {target_user}")  # Debug print
+                return make_response(jsonify({'error': 'Match already exists'}), 409) # I think 409 is right?
+            # Create match
+            cursor.execute("INSERT INTO matches (user1_id, user2_id) VALUES (%s, %s)", (source_user, target_user))
+            db_conn.commit()
+            # Check if match was created # TODO implement error handling
+            cursor.execute("SELECT * FROM matches WHERE user1_id = %s AND user2_id = %s", (source_user, target_user))
+            create_match_response = dict(cursor.fetchone())
+            print(f"Created match between {source_user} and {target_user}")  # Debug print
+        except Exception as e:
+            print(f"Error creating match: {e}")
+            return make_response(jsonify({'error': 'Error creating match'}), 500)
+        finally:
+            if cursor:
+                cursor.close()
+            if db_conn:
+                db_conn.close()
+    print(f"New match created: {create_match_response}")
     return make_response(jsonify(create_match_response))
 
 # Returns the profiles of users matched to the source user
