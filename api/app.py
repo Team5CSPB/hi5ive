@@ -65,6 +65,7 @@ def find_matches():
     return None
 
 
+#* Not fully implemented
 # @bp.route('/login', methods=['GET', 'POST'])
 # def login():
     # user = None
@@ -120,7 +121,8 @@ def create_match():
 # As is, returns entire matches. Should return just the id, or return get_user() of matched users.
 @bp.route('/matches/<int:user_id>', methods=['GET', 'POST'])
 def matches(user_id):
-    user = get_user(user_id)
+    user = get_user(user_id) # make sure user exists
+    user_matches = None
     if user is None:
         return make_response(jsonify({"error": "User not found"}), 404)
     else:
@@ -132,7 +134,7 @@ def matches(user_id):
             cursor.execute("SELECT * FROM matches WHERE user1_id = %s OR user2_id = %s", (user_id,user_id))
             user_matches = cursor.fetchall()
             print(f"User matches: {user_matches}")  # Debug print
-            return make_response(jsonify(user_matches))
+            #return make_response(jsonify(user_matches))
         except Exception as e:
             print(f"Error fetching user matches: {e}")
         finally:
@@ -140,7 +142,16 @@ def matches(user_id):
                 cursor.close()
             if db_conn:
                 db_conn.close()
-    return make_response(jsonify({"error": "User not found"}), 404)
+    matched_users = []
+    for match in user_matches:
+        if match['user1_id'] == user_id:
+            m = get_user(match['user2_id']).get_json()
+        else:
+            m = get_user(match['user1_id']).get_json()
+        if m is not None:
+            print(f"Matched user: {m}")
+            matched_users.append(m)
+    return make_response(jsonify(matched_users))
 
 @bp.route('/signup', methods=['GET', 'POST'])
 def signup():

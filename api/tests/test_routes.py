@@ -44,7 +44,7 @@ def test_get_unknown_route(client):
     assert response.status_code == 404, 'unknown route should return 404'
 
 
-# place holder route
+#* login currently disabled, not fully implemented
 # def test_login(client):
 #     assert client.get('/login').status_code == 200
 #     response = client.post('/login', data={'username': 'john_doe', 'password_hash': 'hashed_password_1'})
