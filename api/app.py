@@ -117,8 +117,7 @@ def create_match():
     create_match_response = {'place': 'holder'}
     return make_response(jsonify(create_match_response))
 
-# TODO: finish implementation.
-# As is, returns entire matches. Should return just the id, or return get_user() of matched users.
+# Returns the profiles of users matched to the source user
 @bp.route('/matches/<int:user_id>', methods=['GET', 'POST'])
 def matches(user_id):
     user = get_user(user_id) # make sure user exists
@@ -143,9 +142,10 @@ def matches(user_id):
             if db_conn:
                 db_conn.close()
     matched_users = []
+    # TODO: Implement error handling for retrieving this data
     for match in user_matches:
         if match['user1_id'] == user_id:
-            m = get_user(match['user2_id']).get_json()
+            m = get_user(match['user2_id']).get_json() # get_user() returns response object
         else:
             m = get_user(match['user1_id']).get_json()
         if m is not None:
@@ -164,14 +164,15 @@ def logout():
     return make_response(jsonify(logout_response))
 
 # Get users by interest
-# TODO write pytest for route
-@app.route('/users/interest/<string:interest>', methods=['GET'])
+@bp.route('/users/interest/<string:interest>', methods=['GET'])
 def get_users_by_interest(interest):
+    print(f"Getting users by interest: {interest}")
     users = []
     cursor = None
     db_conn = None
     try:
         interest_id = db.fetch_interest_id(interest)
+        print(f"Interest ID: {interest_id}")
         if interest_id is None:
             return make_response(jsonify({"error": "Interest not found"}), 404)
 

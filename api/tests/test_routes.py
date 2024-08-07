@@ -52,6 +52,14 @@ def test_get_unknown_route(client):
 #     #assert response.json['email'] == 'john@example.com'
 #     print(response.json)
 
+def test_get_user_by_interests(client):
+    response = client.get('/users/interest/reading')
+    print(response.json)
+    #assert response.is_json, "Response is not JSON"
+    assert response.status_code == 200
+    assert len(response.json) > 0
+
+
 # another place holder route
 def test_signup(client):
     response = client.get('/signup')
