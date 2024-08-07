@@ -1,19 +1,39 @@
 import React, { useState } from 'react';
-import Logo from './Logo.js';
+import Logo from '../components/Logo.js';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+import '../styles/LoginPage.css';
+import {Button} from 'semantic-ui-react';
+
 // LOGIN PAGE
 // two fields for username and password , and input error handling
 // a login button
 // if sucessful, will return the matches page
  // Brandname and Logo
-function LoginPage(){
+function LoginPage({setLoggedInUser}){
   // hooks to use state in functional components
   // const [state,setState] = useState(initialValue)
   //state: The current state value.
   //setState: Function to update the state.
   //initialValue: The initial state value.
+
+  const navigate = useNavigate();
+
   const [username,setUsername] =  useState('');
   const [password,setPassword] =  useState('');
   const [error, setError] = useState('');
+  // Dummy user data from App.js
+  const dummyUser = {
+    id: 6,
+    status: 'active',
+    name: 'Hedy Lamar',
+    hobbies: ['singing', 'dancing'],
+    groups: ['trekking', 'cooking'],
+    interests: ['movies', 'sports'],
+    about: 'I am a singer and dancer',
+    imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
+  };
+
   const onButtonClick = () => {
     // update this function later with more detailed login requirements
     // initial error condititons: if there is no username or password
@@ -29,7 +49,8 @@ function LoginPage(){
       // window.location - gets current url and redirects user to a URL
       // set windown url to /matches
       // update to use the backend to return the users specific match  page
-      window.location.href = '/matches';
+        setLoggedInUser(dummyUser);
+        navigate("/users")
     }
     else {
       // sets the error variable to have a value
@@ -72,12 +93,12 @@ function LoginPage(){
       {error && <div className="Error">{error}</div>}
       <br />
       <div className="InputContainer">
-        <input
-        className="inputButton"
-        type="button"
+        <Button
+        primary
         onClick={onButtonClick}
-        value="Login"
-        />
+        >
+          Login
+        </Button>
         </div>
       </div>
   );

@@ -1,0 +1,85 @@
+
+/* General formatting  */
+body{
+  background-color: whitesmoke;
+}
+
+
+/* 3 sections */
+
+/* Container for the About section */
+.About {
+  display: flex; /* Align items in a row */
+  align-items: flex-start; /* Align items to the top */
+  justify-content: center; /* Align items to the left */
+  gap: 20px; /* Space between the logo and info sections */
+  margin: 20px; /* Optional: Add margin around the container */
+}
+
+/* Logo styles */
+.LogoContainer img {
+  width: 250px; /* Set the width of the logo image */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Info section styles */
+.Info {
+  max-width: 600px; /* Limit the width of the content area */
+  border: solid 2px;
+}
+
+/* Optional: Heading styles */
+.Info h1 {
+  margin-top: 0; /* Remove margin from the top of the heading */
+  margin-bottom: 10px; /* Space between heading and paragraph */
+}
+
+/* Paragraph styles */
+.Info p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+}
+/* About */
+
+
+
+/* Scrollshow: image slider */
+.Scrollshow{
+  margin: 50px;
+}
+
+.Scrollshow h1 {
+  margin: 20px;
+}
+
+/* image slider larger */
+.images-container {
+  width: 80%; /* Increase width as needed */
+  max-width: 1200px; /* Set maximum width */
+  margin: 0 auto; /* Center the slider */
+  position: relative;
+}
+
+.sliderimage {
+  width: 100%; /* Full width of the container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+@media (max-width: 768px) {
+  .slider-container {
+    width: 95%; /* Adjust width for smaller screens */
+  }
+}
+
+
+
+/* call to action: message and buttons */
+.calltoaction{
+  display: center; /* Align items in a row */
+  align-items: flex-start; /* Align items to the top */
+  margin-top: 30px;
+}
+
+
+

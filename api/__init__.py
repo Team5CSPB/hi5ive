@@ -1,21 +1,47 @@
-# from .app import app
-
-# __all__ = (app,)
-
-from flask import Flask
+from flask import Flask, g, current_app
 import os
+import psycopg2
+import configparser
+
 
 def create_app():
-    flask_app = Flask(__name__)
+    app = Flask(__name__)
 
-    flask_app.config.from_mapping(
-        DATABASE=os.path.join(flask_app.instance_path, 'database.db'), # places database.db in hi5ive/instance
+    # Create a ConfigParser object
+    config = configparser.ConfigParser()
+
+    # Read the configuration file
+    config.read('config.ini')
+
+    # Set the database configuration from the config file
+    app.config['DATABASE'] = {
+        'dbname': config['database']['dbname'],
+        'user': config['database']['user'],
+        'password': config['database']['password'],
+        'host': config['database']['host'],
+        'port': config['database']['port']
+    }
+
+    @app.before_request
+    def before_request():
+        g.db = connect_db()
+
+    @app.teardown_request
+    def teardown_request(exception):
+        db = getattr(g, 'db', None)
+        if db is not None:
+            db.close()
+    
+
+    return app
+
+def connect_db():
+    db_config = current_app.config['DATABASE']
+    conn = psycopg2.connect(
+        dbname=db_config['dbname'],
+        user=db_config['user'],
+        password=db_config['password'],
+        host=db_config['host'],
+        port=db_config['port']
     )
-
-    # import routes from app.py, registering them with this flask_app
-    from . import app
-    flask_app.register_blueprint(app.bp)
-
-    from . import db #* register teardown?
-
-    return flask_app
+    return conn

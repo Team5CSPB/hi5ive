@@ -1,44 +1,52 @@
-from flask import g, current_app
-import sqlite3
-import os
+# db.py
 
-def init_db():
-    db = get_db()
-    with open('api/schema.sql') as f:
-        db.executescript(f.read())
-    db.commit()
-    #db.close()
+import psycopg2
+from configparser import ConfigParser
 
-# current_app must be called within context of a flask application
-# ie within a route or with app_context(). get_db() will not function
-# if called independently because it looks for the database path in
-# the context of the current flask application 
+def config(filename='config.ini', section='database'):
+    parser = ConfigParser()
+    parser.read(filename)
+
+    db = {}
+    if parser.has_section(section):
+        params = parser.items(section)
+        for param in params:
+            db[param[0]] = param[1]
+    else:
+        raise Exception(f'Section {section} not found in the {filename} file')
+
+    return db
+
 def get_db():
-    # db = sqlite3.connect('database.db')
-    # db.row_factory = sqlite3.Row
-    # return db
-    if 'db' not in g:
-        g.db = sqlite3.connect(
-            current_app.config['DATABASE'],
-            detect_types=sqlite3.PARSE_DECLTYPES
-        )
-        g.db.row_factory = sqlite3.Row
+    connection = None
+    try:
+        params = config()
+        connection = psycopg2.connect(**params)
+        print("Database connection established.")
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(f"Error connecting to database: {error}")
+    
+    return connection
 
-    return g.db
+def fetch_interest_id(interest_name):
+    conn = get_db()
+    if conn is None:
+        print("Connection not established.")
+        return None
 
-# retrieve a user by id
-# TODO: move query lines to route definitions?
-def get_user(user_id):
-    db = get_db()
-    user = db.execute('SELECT * FROM users WHERE id = ?', (user_id,)).fetchone()
-    #db.close()
-    return user
-
-def create_user(username, email, password_hash, first_name, last_name, bio, profile_picture, location):
-    db = get_db()
-    db.execute('''INSERT INTO users 
-                (username, email, password_hash, first_name, last_name, bio, profile_picture, location)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)''', 
-                (username, email, password_hash, first_name, last_name, bio, profile_picture, location))
-    db.commit()
-    #db.close()
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT id FROM interests WHERE name = %s", (interest_name,))
+        interest_id = cur.fetchone()
+        cur.close()
+        if interest_id:
+            print(f"Found interest ID: {interest_id[0]}")
+            return interest_id[0]
+        else:
+            print(f"Interest '{interest_name}' not found.")
+            return None
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(f"Error fetching interest ID: {error}")
+        return None
+    finally:
+        conn.close()

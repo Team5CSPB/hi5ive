@@ -6,3 +6,4 @@ __pycache__/*
 instance
 database.db
 .coverage
+.DS_Store
