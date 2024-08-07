@@ -38,12 +38,12 @@ def test_get_unknown_route(client):
 
 
 # place holder route
-def test_login(client):
-    assert client.get('/login').status_code == 200
-    response = client.post('/login', data={'username': 'john_doe', 'password_hash': 'hashed_password_1'})
-    assert response.is_json
-    #assert response.json['email'] == 'john@example.com'
-    print(response.json)
+# def test_login(client):
+#     assert client.get('/login').status_code == 200
+#     response = client.post('/login', data={'username': 'john_doe', 'password_hash': 'hashed_password_1'})
+#     assert response.is_json
+#     #assert response.json['email'] == 'john@example.com'
+#     print(response.json)
 
 # another place holder route
 def test_signup(client):

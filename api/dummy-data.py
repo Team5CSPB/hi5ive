@@ -30,7 +30,7 @@ def generate_avatar_url():
     data = response.json()
     return data['results'][0]['picture']['large']
 
-#def insert_dummy_data():
+def insert_dummy_data():
     # Connect to the database
     conn = psycopg2.connect(
         dbname=config['database']['dbname'],
