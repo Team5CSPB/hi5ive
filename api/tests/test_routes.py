@@ -24,6 +24,13 @@ def test_get_user_none(client):
     assert response.status_code == 404
     assert response.json['error'] == 'User not found'
 
+def test_matches(client):
+    response = client.get('/matches/1')
+    assert response.is_json, "Response is not JSON"
+    assert response.status_code == 200
+    assert len(response.json) > 0
+    print(response.json)
+
 
 # not sure what else to include here
 def test_get_users(client):
