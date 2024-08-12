@@ -32,6 +32,16 @@ hi5ive
 * What you had planned for the future
 * Any known problems (bugs, issues)
 
+### Frontend: ###
+
+The frontend team successfully created a home page that displayed our brand logo, a paragraph about our project, as well as an image slideshow to enhance user experience , and a signup and login button that would  redirect the user to those respective pages. The team also completed a signup page, which accepted numerous fields like name , email , password , etc in order to sign the user up, as a login page that would log the user into the website. The frontend team also completed a matches page that would display potential matches and could be filtered by interest, with a match button available to match those user. The profile page also completed and displayed interests, groups, profile pic, and other pertinent information. 
+
+
+Features in the middle of being implemented were mainly various degrees of deeper functionality to our project. For example, we want to be able to connect to our database and pull users using the backend to be displayed as potential matches , as well as being able to set and change our interests in the user profile page. There were some CSS formatting changes that were in progress that would format the user profile pics appropriately and standardize all the styling in the app. 
+
+Frontend plans for the future involved creating some type of user authentication to login to the site and create users. The team wanted to create a separate section in the user profile page that would display the actual matches as well. In the future once these were done, together the team would work on expanding a match between two people to a match between larger groups of people based on interests.
+
+
 ## Render Links
 [Hi5ive Flask](https://hi5ive-flask.onrender.com)
 
