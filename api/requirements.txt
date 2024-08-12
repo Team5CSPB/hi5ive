@@ -13,3 +13,5 @@ packaging==24.1
 requests==2.32.3
 urllib3==2.2.2
 Werkzeug==3.0.3
+psycopg2-binary==2.9.9
+Flask-Cors==4.0.1
