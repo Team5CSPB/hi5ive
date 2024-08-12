@@ -37,7 +37,7 @@ Hi 5ive is built using a modern web stack:
 ```plaintext
 +----------------+        +---------------------+        +------------------+
 |   Frontend     | <----> |    Backend API      | <----> |  PostgreSQL DB   |
-| (React.js)     |        | (Node.js, Express)  |        |                  |
+| (React.js)     |        |   (Flask)           |                  |
 +----------------+        +---------------------+        +------------------+
 ```
 
