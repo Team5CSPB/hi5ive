@@ -41,6 +41,15 @@ Features in the middle of being implemented were mainly various degrees of deepe
 
 Frontend plans for the future involved creating some type of user authentication to login to the site and create users. The team wanted to create a separate section in the user profile page that would display the actual matches as well. In the future once these were done, together the team would work on expanding a match between two people to a match between larger groups of people based on interests.
 
+### Backend ###
+
+### Database ###
+
+We created a database using PostgreSQL and deployed it on render as a persistent development database. This includes all necessary tables and fields for accomplishing our project goals. We also implemented scripts for filling and testing the database with dummy data.
+
+Plans for the future were to implement more tracking fields, like more detailed location services, that could help narrow down the search for matches. As well as creating data cleaning protocols to ensure the safety of our data.
+
+The current bugs seem to be between deployment and the backend being filled with an old version of the database that made the routes unable to correctly request all data. 
 
 ## Render Links
 [Hi5ive Flask](https://hi5ive-flask.onrender.com)
