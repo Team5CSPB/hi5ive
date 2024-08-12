@@ -52,56 +52,58 @@ Once the application is running, you can access it at http://localhost:3000. Sig
 ## API Endpoints
 
 Here’s a list of the main API endpoints:
-  1. Get All Users
-      Endpoint: /users
-      Method: GET
-      Description: Fetches all users from the database.
-      Response: JSON list of all users.
 
-  2. Get User by ID
-      Endpoint: /user/<int:user_id>
-      Method: GET
-      Description: Fetches a specific user by their ID.
-      Response: JSON object of the user's details or 404 if not found.
+1. **Get All Users**
+   - **Endpoint**: `/users`
+   - **Method**: `GET`
+   - **Description**: Fetches all users from the database.
+   - **Response**: JSON list of all users.
 
-  3. Create a Match
-      Endpoint: /create_match
-      Method: POST
-      Description: Creates a match between two users.
-      Response: JSON object of the match details or appropriate error message.
+2. **Get User by ID**
+   - **Endpoint**: `/user/<int:user_id>`
+   - **Method**: `GET`
+   - **Description**: Fetches a specific user by their ID.
+   - **Response**: JSON object of the user's details or 404 if not found.
 
-  4. Get Matches for a User
-      Endpoint: /matches/<int:user_id>
-      Method: GET
-      Description: Returns the profiles of users matched to the given user ID.
-      Response: JSON list of matched users or 404 if the user is not found.
+3. **Create a Match**
+   - **Endpoint**: `/create_match`
+   - **Method**: `POST`
+   - **Description**: Creates a match between two users.
+   - **Response**: JSON object of the match details or appropriate error message.
 
-  5. Get Users by Interest
-      Endpoint: /users/interest/<string:interest>
-      Method: GET
-      Description: Fetches users who share a specific interest.
-      Response: JSON list of users sharing the interest or 404 if the interest is not found.
+4. **Get Matches for a User**
+   - **Endpoint**: `/matches/<int:user_id>`
+   - **Method**: `GET`
+   - **Description**: Returns the profiles of users matched to the given user ID.
+   - **Response**: JSON list of matched users or 404 if the user is not found.
 
-To Be Implemented Routes
+5. **Get Users by Interest**
+   - **Endpoint**: `/users/interest/<string:interest>`
+   - **Method**: `GET`
+   - **Description**: Fetches users who share a specific interest.
+   - **Response**: JSON list of users sharing the interest or 404 if the interest is not found.
 
-  6. User Login (Commented Out)
-      Endpoint: /login
-      Method: POST
-      Description: Handles user login by checking username and password.
-      Response: JSON object of the user's details upon successful login or appropriate error message.
-      Status: Not fully implemented (commented out).
+### To Be Implemented Routes
 
-  7. User Signup
-      Endpoint: /signup
-      Method: POST
-      Description: Placeholder for user signup functionality.
-      Response: Placeholder response.
+6. **User Login** (Commented Out)
+   - **Endpoint**: `/login`
+   - **Method**: `POST`
+   - **Description**: Handles user login by checking username and password.
+   - **Response**: JSON object of the user's details upon successful login or appropriate error message.
+   - **Status**: Not fully implemented (commented out).
 
-  8. User Logout
-      Endpoint: /logout
-      Method: POST
-      Description: Placeholder for user logout functionality.
-      Response: Placeholder response.
+7. **User Signup**
+   - **Endpoint**: `/signup`
+   - **Method**: `POST`
+   - **Description**: Placeholder for user signup functionality.
+   - **Response**: Placeholder response.
+
+8. **User Logout**
+   - **Endpoint**: `/logout`
+   - **Method**: `POST`
+   - **Description**: Placeholder for user logout functionality.
+   - **Response**: Placeholder response.
+
 
 ## Database Schema
 
