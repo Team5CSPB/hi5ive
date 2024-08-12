@@ -43,6 +43,8 @@ Frontend plans for the future involved creating some type of user authentication
 
 ### Backend ###
 
+We built our back end using the Flask server framework in python. This handles back end routes, providing endpoints for the front end to retrieve data. The backend facilitates communication with the database to find users by id, find users by interests, create matches between users. The routes are partially implemented as the project stands, the next to be added are login/logout along with a flask CORS system for verifying login credentials and login status, with signup/create_user and delete user soon after. Currently our database is filled with dummy data for database and route testing. Error handling is pretty good in its current state but it could use a little more, especially as we expand interaction with the front end for more complex operations than just database retrieval. I would also like to implement some interaction with an image hosting api as suggested in the presentation for our profile pages, as they are just stock photo placeholders right now.
+
 ### Database ###
 
 We created a database using PostgreSQL and deployed it on render as a persistent development database. This includes all necessary tables and fields for accomplishing our project goals. We also implemented scripts for filling and testing the database with dummy data.
