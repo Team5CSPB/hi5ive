@@ -56,4 +56,4 @@ The current bugs seem to be between deployment and the backend being filled with
 ## Render Links
 [Hi5ive Flask](https://hi5ive-flask.onrender.com)
 
-[Hi5ive React](https://hi5ive.onrender.com)
+[Hi5ive React](https://hi5ive.vercel.app/)
